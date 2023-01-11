@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.EFCore.Context
+namespace Data.EFCore.DbContext
 {
-    public class Context : DbContext
+    public class Context : Microsoft.EntityFrameworkCore.DbContext
     {
         
         public Context(DbContextOptions<Context> options) : base(options)
@@ -21,9 +22,11 @@ namespace Data.EFCore.Context
         public DbSet<Room> Rooms { get; set; }
 
        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlite("Data Source=HotDesksDB");
+        }  */  
 
-        }
     }
 }
