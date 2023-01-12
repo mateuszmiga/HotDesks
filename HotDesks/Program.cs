@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(opt => 
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<Context>();
 
 var app = builder.Build();
 
@@ -20,6 +21,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+using var scope = app.Services.CreateScope();
+var dataSeeder = new DataSeeder();
+var context = scope.ServiceProvider.GetService<Context>();
+
+await dataSeeder.SeedDataAsyncIfDbIsEmpty(context);
 
 app.UseHttpsRedirection();
 
