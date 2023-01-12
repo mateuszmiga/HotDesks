@@ -22,11 +22,13 @@ namespace Data.EFCore.DbContext
         public DbSet<Room> Rooms { get; set; }
 
        
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite("Data Source=HotDesksDB");
-        }  */  
+            builder.Entity<Desk>().HasKey(d => d.Id);
+            builder.Entity<Desk>().HasOne(o => o.Owner).WithOne(d => d.Desk).HasForeignKey("OwnerId");
+            builder.Entity<Desk>().HasOne(o => o.Room).WithMany(d => d.Desks).HasForeignKey("RoomId");
+            builder.Entity<Desk>().Property()
+        }
 
     }
 }
