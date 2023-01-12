@@ -25,9 +25,11 @@ namespace Data.EFCore.DbContext
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Desk>().HasKey(d => d.Id);
-            builder.Entity<Desk>().HasOne(o => o.Owner).WithOne(d => d.Desk).HasForeignKey("OwnerId");
-            builder.Entity<Desk>().HasOne(o => o.Room).WithMany(d => d.Desks).HasForeignKey("RoomId");
-            builder.Entity<Desk>().Property()
+            builder.Entity<Desk>().HasOne(o => o.Owner).WithOne(d => d.Desk);
+            builder.Entity<Desk>().HasOne(o => o.Room).WithMany(d => d.Desks);
+            builder.Entity<Desk>().Property(p => p.Description).HasMaxLength(128);
+            builder.Entity<Desk>().Property(p => p.RentingStart).HasColumnType("date");
+            builder.Entity<Desk>().Property(p => p.RentingEnd).HasColumnType("date");
         }
 
     }

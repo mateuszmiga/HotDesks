@@ -12,6 +12,9 @@ namespace Domain.Entities
         public string Description { get; set; }      
         public DateTime? RentingStart { get; set; }
         public DateTime? RentingEnd { get; set; }
+
+        public int? OwnerId { get; set; }
+        public int RoomId { get; set; }
         public virtual Owner? Owner { get; set; }
         public virtual Room Room { get; set; }
 
