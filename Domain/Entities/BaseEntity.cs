@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotdesks.Tests
+namespace Domain.Entities
 {
-    internal class TestingDatabase
+    internal class BaseEntity
     {
     }
 }

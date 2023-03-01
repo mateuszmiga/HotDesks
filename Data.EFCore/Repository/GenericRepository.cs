@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.EFCore.DbContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,31 +7,33 @@ using System.Threading.Tasks;
 
 namespace Data.EFCore.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        public void Create(T obj)
+        private readonly Context _context;
+
+        public GenericRepository(Context context)
+        {
+            _context = context;
+        }
+
+        public void Create(TEntity obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(object id)
+        public void Delete(TEntity obj)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Remove(obj);
         }
 
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<TEntity> GetAll() => _context.Set<TEntity>().ToList();
 
-        public T GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public TEntity GetById(int id) => _context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
+        
 
-        public void Update(T obj)
+        public void Update(int id, TEntity obj)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().SingleOrDefault;
         }
     }
 }
