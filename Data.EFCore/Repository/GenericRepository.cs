@@ -1,4 +1,5 @@
 ﻿using Data.EFCore.DbContext;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.EFCore.Repository
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly Context _context;
 
@@ -18,22 +19,28 @@ namespace Data.EFCore.Repository
 
         public void Create(TEntity obj)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Add(obj);
+            _context.SaveChanges();
         }
 
         public void Delete(TEntity obj)
         {
             _context.Set<TEntity>().Remove(obj);
+            _context.SaveChanges();
         }
 
         public IEnumerable<TEntity> GetAll() => _context.Set<TEntity>().ToList();
 
-        public TEntity GetById(int id) => _context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
+        public TEntity GetById(int id) => _context.Set<TEntity>().SingleOrDefault(e => e.Id == id);
         
 
         public void Update(int id, TEntity obj)
         {
-            _context.Set<TEntity>().SingleOrDefault;
+            var entity = GetById(id);
+
+            _context.Set<TEntity>().Remove(entity);
+            _context.Add(obj);
+            _context.SaveChanges();
         }
     }
 }

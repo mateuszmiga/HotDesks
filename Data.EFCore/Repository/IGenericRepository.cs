@@ -6,14 +6,14 @@ namespace Data.EFCore.Repository
     {
         public void Create(TEntity obj);
 
-        public void Delete(object id);
+        public void Delete(TEntity entity);
 
         public IEnumerable<TEntity> GetAll();
 
         public TEntity GetById(int id);
 
 
-        public void Update(TEntity obj);
+        public void Update(int id, TEntity obj);
         
     }
 }

@@ -16,7 +16,7 @@ namespace Hotdesks.Tests
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase(databaseName: "TestDB");
-            optionsBuilder
+            
         }
 
         public DbSet<Desk> Desks { get; set; }
