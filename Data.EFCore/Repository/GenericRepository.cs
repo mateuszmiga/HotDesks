@@ -1,5 +1,6 @@
 ﻿using Data.EFCore.DbContext;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,30 +18,30 @@ namespace Data.EFCore.Repository
             _context = context;
         }
 
-        public void Create(TEntity obj)
+        public async Task Create(TEntity obj)
         {
+            obj.CreatedAt= DateTime.Now;
             _context.Set<TEntity>().Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(TEntity obj)
+        public async Task Delete(TEntity obj)
         {
             _context.Set<TEntity>().Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<TEntity> GetAll() => _context.Set<TEntity>().ToList();
+        public async Task<IEnumerable<TEntity>> GetAll() => await _context.Set<TEntity>().ToListAsync();
 
-        public TEntity GetById(int id) => _context.Set<TEntity>().SingleOrDefault(e => e.Id == id);
+        public async Task<TEntity> GetByIdAsync(int id) => await _context.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id);
         
 
-        public void Update(int id, TEntity obj)
+        public async Task UpdateAsync(int id, TEntity obj)
         {
-            var entity = GetById(id);
-
-            _context.Set<TEntity>().Remove(entity);
-            _context.Add(obj);
-            _context.SaveChanges();
+            obj.UpdatedAt= DateTime.Now;
+            _context.Entry(obj).State= EntityState.Modified;
+            
+            await _context.SaveChangesAsync();
         }
     }
 }

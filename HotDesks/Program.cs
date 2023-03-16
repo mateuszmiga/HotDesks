@@ -1,4 +1,6 @@
 using Data.EFCore.DbContext;
+using Data.EFCore.Repository;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(opt => 
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<Context>();
+builder.Services.AddTransient<GenericRepository<Desk>>();
+
 
 var app = builder.Build();
 

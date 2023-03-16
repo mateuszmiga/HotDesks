@@ -4,16 +4,15 @@ namespace Data.EFCore.Repository
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        public void Create(TEntity obj);
+        public Task Create(TEntity obj);
 
-        public void Delete(TEntity entity);
+        public Task Delete(TEntity entity);
 
-        public IEnumerable<TEntity> GetAll();
+        public Task<IEnumerable<TEntity>> GetAll();
 
-        public TEntity GetById(int id);
+        public Task<TEntity> GetByIdAsync(int id);
 
-
-        public void Update(int id, TEntity obj);
+        public Task UpdateAsync(int id, TEntity obj);
         
     }
 }
