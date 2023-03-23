@@ -16,7 +16,10 @@ namespace Data.EFCore.DbContext
         public Context(DbContextOptions<Context> options) : base(options)
         {
         }
-        
+        public Context()
+        {
+        }
+
         public DbSet<Desk> Desks { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Room> Rooms { get; set; }
