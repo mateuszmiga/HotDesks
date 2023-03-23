@@ -11,11 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Hotdesks.Tests
 {
     public class GenericRepositoryTests
     {
+        private readonly ITestOutputHelper _output;
+
+        public GenericRepositoryTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
         [Fact]
         public async Task GetOwners_WhenCall_ShouldReturnOwnersAsync()
         {
@@ -26,7 +34,10 @@ namespace Hotdesks.Tests
 
             //Act
             var result =await repo.GetAll();
-
+            foreach (var item in result)
+            {
+                _output.WriteLine(item.Name);
+            }
             //Assert
             result.Should().AllBeOfType<Owner>().Should().NotBeNull();
         }
