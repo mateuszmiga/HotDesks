@@ -21,7 +21,7 @@ namespace Data.EFCore.DbContext
         }
 
         public DbSet<Desk> Desks { get; set; }
-        public DbSet<Owner> Owners { get; set; }
+        public virtual DbSet<Owner> Owners { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
        

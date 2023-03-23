@@ -3,11 +3,13 @@ using Data.EFCore.Repository;
 using Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Moq;
 using Moq.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -40,6 +42,27 @@ namespace Hotdesks.Tests
             }
             //Assert
             result.Should().AllBeOfType<Owner>().Should().NotBeNull();
+        }
+        
+        
+        [Fact]
+        public async Task AddAsync_AnyEntities_ShouldBeAdded()
+        {
+            //Arrange
+            var mockContext = new Mock<Context>();
+            var mockSet = new Mock<DbSet<Owner>>();            
+            mockContext.Setup(c => c.Set<Owner>()).Returns(mockSet.Object);
+            var repo = new GenericRepository<Owner>(mockContext.Object);
+            var owner = new Owner();
+            owner.Name = "Test";
+
+            //Act
+            await repo.Create(owner);
+
+            //Assert
+            mockSet.Verify(m => m.Add(It.IsAny<Owner>()), Times.Once());            
+            
+            //mockContext.Verify(m => m.SaveChangesAsync(), Times.Once);
         }
 
 
