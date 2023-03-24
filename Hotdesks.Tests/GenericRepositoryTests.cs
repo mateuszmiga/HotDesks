@@ -1,7 +1,9 @@
-﻿using Data.EFCore.DbContext;
+﻿using AutoFixture;
+using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
 using FluentAssertions;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Moq;
@@ -49,20 +51,45 @@ namespace Hotdesks.Tests
         public async Task AddAsync_AnyEntities_ShouldBeAdded()
         {
             //Arrange
+            var fixture = new Fixture();
+
+            //This code is needed to support recursion
+            fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => fixture.Behaviors.Remove(b));
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
+
             var mockContext = new Mock<Context>();
             var mockSet = new Mock<DbSet<Owner>>();            
             mockContext.Setup(c => c.Set<Owner>()).Returns(mockSet.Object);
             var repo = new GenericRepository<Owner>(mockContext.Object);
-            var owner = new Owner();
-            owner.Name = "Test";
+            var owner = fixture.Create<Owner>();            
 
             //Act
             await repo.Create(owner);
 
             //Assert
-            mockSet.Verify(m => m.Add(It.IsAny<Owner>()), Times.Once());            
-            
-            //mockContext.Verify(m => m.SaveChangesAsync(), Times.Once);
+            mockSet.Verify(m => m.Add(It.IsAny<Owner>()), Times.Once());
+            mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
+        }
+
+        [Fact]
+        public async Task Delete_WhenCalled_ShouldDeleteSpecifiedEntity()
+        {
+            //Arrange
+            var owners = GetFakeOwners();
+            var mockContext = new Mock<Context>();
+            var mockSet = new Mock<DbSet<Owner>>();
+            //mockSet.Setup(c => c.AddRange(It.IsAny<List<Owner>>()));
+            mockContext.Setup(c => c.Set<Owner>().AddRange(owners));
+            var repo = new GenericRepository<Owner>(mockContext.Object);
+
+            //Act
+            var result = repo.Delete(mockContext.Object.Owners.First());
+
+            //Assert
+            mockSet.Verify(c => c.Remove(It.IsAny<Owner>()), Times.Once());
+            mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
+
         }
 
 
@@ -76,5 +103,6 @@ namespace Hotdesks.Tests
                 new Owner { Id = 4, Name = "Samantha Williams" }
             };
         }
+
     }
 }
