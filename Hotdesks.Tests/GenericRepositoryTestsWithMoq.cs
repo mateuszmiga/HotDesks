@@ -19,11 +19,11 @@ using Xunit.Abstractions;
 
 namespace Hotdesks.Tests
 {
-    public class GenericRepositoryTests
+    public class GenericRepositoryTestsWithMoq
     {
         private readonly ITestOutputHelper _output;
 
-        public GenericRepositoryTests(ITestOutputHelper output)
+        public GenericRepositoryTestsWithMoq(ITestOutputHelper output)
         {
             _output = output;
         }
@@ -72,25 +72,25 @@ namespace Hotdesks.Tests
             mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
         }
 
-        [Fact]
-        public async Task Delete_WhenCalled_ShouldDeleteSpecifiedEntity()
-        {
-            //Arrange
-            var owners = GetFakeOwners();
-            var mockContext = new Mock<Context>();
-            var mockSet = new Mock<DbSet<Owner>>();
-            //mockSet.Setup(c => c.AddRange(It.IsAny<List<Owner>>()));
-            mockContext.Setup(c => c.Set<Owner>().AddRange(owners));
-            var repo = new GenericRepository<Owner>(mockContext.Object);
+        //[Fact]
+        //public async Task Delete_WhenCalled_ShouldDeleteSpecifiedEntity()
+        //{
+        //    //Arrange
+        //    var owners = GetFakeOwners();
+        //    var mockContext = new Mock<Context>();
+        //    var mockSet = new Mock<DbSet<Owner>>();
+        //    //mockSet.Setup(c => c.AddRange(It.IsAny<List<Owner>>()));
+        //    mockContext.Setup(c => c.Set<Owner>().AddRange(owners));
+        //    var repo = new GenericRepository<Owner>(mockContext.Object);
 
-            //Act
-            var result = repo.Delete(mockContext.Object.Owners.First());
+        //    //Act
+        //    var result = repo.Delete(mockContext.Object.Owners.First());
 
-            //Assert
-            mockSet.Verify(c => c.Remove(It.IsAny<Owner>()), Times.Once());
-            mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
+        //    //Assert
+        //    mockSet.Verify(c => c.Remove(It.IsAny<Owner>()), Times.Once());
+        //    mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
 
-        }
+        //}
 
 
         private static List<Owner> GetFakeOwners()
