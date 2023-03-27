@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Bogus.DataSets;
+using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
 using FluentAssertions;
@@ -22,9 +23,13 @@ namespace Hotdesks.Tests
 
         public GenericRepositoryTestsWithInMemoryDb(InMemoryDb db, ITestOutputHelper output)
         {
+            DataSeeder seeder = new DataSeeder();
+            seeder.SeedDataAsyncIfDbIsEmpty(db);
             _db = db;
             _output = output;
         }
+
+
 
         [Fact]
         public async Task Create_OneOwner_CreateNewOwnerAsync()
@@ -35,12 +40,25 @@ namespace Hotdesks.Tests
             
             //Act
             await repo.Create(owner);
-            var result = _db.Owners.First().Name;
+            var result = _db.Owners.Where(o => o.Name == owner.Name).First().Name;
             _output.WriteLine(result);
             
             //Assert
-            _db.Owners.Should().HaveCount(1);
+            _db.Owners.Should().HaveCount(9);
             result.Should().Be(owner.Name);
+        }
+
+        [Fact]
+        public async Task GetAll_WhenCalled_ShouldReturnAllEntitiesInTable()
+        {
+            //Arrange
+            var repo = new GenericRepository<Owner>(_db);
+
+            //Act
+            var result =await repo.GetAll();
+
+            //Assert
+            result.Should().NotBeEmpty();
         }
     }
 }
