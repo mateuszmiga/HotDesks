@@ -31,7 +31,7 @@ namespace Data.EFCore.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll() => await _context.Set<TEntity>().ToListAsync();
+        public async Task<IEnumerable<TEntity>> GetAll() => await _context.Set<TEntity>().AsNoTracking().ToListAsync();
 
         public async Task<TEntity> GetByIdAsync(int id) => await _context.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id);
         

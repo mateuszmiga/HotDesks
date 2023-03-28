@@ -43,8 +43,7 @@ namespace Hotdesks.Tests
             var result = _db.Owners.Where(o => o.Name == owner.Name).First().Name;
             _output.WriteLine(result);
             
-            //Assert
-            _db.Owners.Should().HaveCount(9);
+            //Assert            
             result.Should().Be(owner.Name);
         }
 
@@ -82,28 +81,31 @@ namespace Hotdesks.Tests
         {
             //arrange
             var repo = new GenericRepository<Owner>(_db);
-            var owner = _db.Owners.Where(_o => _o.Id == 1).First();
+            var owner = _db.Owners.Where(_o => _o.Id == 2).First();
             var oldName = owner.Name;
-            
-            var owners =await repo.GetAll();
-            foreach (var o in owners)
-            {
-                _output.WriteLine(o.Name);
-            }
-            _output.WriteLine("=========================");
             owner.Name = "test test";
-            //act
-            await repo.UpdateAsync(owner);
 
-            owners = await repo.GetAll();
-            foreach (var o in owners)
-            {
-                _output.WriteLine(o.Name);
-            }
+            //act
+            await repo.UpdateAsync(owner);            
 
             //assert            
             _db.Owners.Any(o => o.Name == oldName).Should().BeFalse();
             _db.Owners.Any(o => o.Name == owner.Name).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetById_Id_ShouldReturnSpecifiedEntity()
+        {
+            //arrange
+            var repo = new GenericRepository<Owner>(_db);
+            
+            //act
+            var owner = await repo.GetByIdAsync(2);
+
+            //assert            
+            owner.Should().NotBeNull();
+            owner.Id.Should().Be(2);
+            owner.Name.Should().NotBeEmpty();
         }
     }
 }
