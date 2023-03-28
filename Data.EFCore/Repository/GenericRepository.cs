@@ -36,9 +36,9 @@ namespace Data.EFCore.Repository
         public async Task<TEntity> GetByIdAsync(int id) => await _context.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id);
         
 
-        public async Task UpdateAsync(int id, TEntity obj)
+        public async Task UpdateAsync(TEntity obj)
         {
-            obj.UpdatedAt= DateTime.Now;
+            obj.UpdatedAt= DateTime.Now;            
             _context.Entry(obj).State= EntityState.Modified;
             
             await _context.SaveChangesAsync();

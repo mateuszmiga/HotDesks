@@ -12,7 +12,7 @@ namespace Data.EFCore.Repository
 
         public Task<TEntity> GetByIdAsync(int id);
 
-        public Task UpdateAsync(int id, TEntity obj);
+        public Task UpdateAsync(TEntity obj);
         
     }
 }

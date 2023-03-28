@@ -64,7 +64,7 @@ namespace Hotdesks.Tests
         [Fact]
         public async Task Delete_SpecifiedOwner_ShouldDeleteSpecifiedEntity()
         {
-            //Arrange
+            //arrange
             var repo = new GenericRepository<Owner>(_db);
             var entityCount = _db.Owners.Count();
             var owner = _db.Owners.Where(_o => _o.Id == 1).First();
@@ -75,6 +75,35 @@ namespace Hotdesks.Tests
             //assert
             _db.Owners.Count().Should().Be(entityCount - 1);
             _db.Owners.Any(o => o.Name == owner.Name).Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task Update_OwnerName_ShouldUpdateSpecifiedEntity()
+        {
+            //arrange
+            var repo = new GenericRepository<Owner>(_db);
+            var owner = _db.Owners.Where(_o => _o.Id == 1).First();
+            var oldName = owner.Name;
+            
+            var owners =await repo.GetAll();
+            foreach (var o in owners)
+            {
+                _output.WriteLine(o.Name);
+            }
+            _output.WriteLine("=========================");
+            owner.Name = "test test";
+            //act
+            await repo.UpdateAsync(owner);
+
+            owners = await repo.GetAll();
+            foreach (var o in owners)
+            {
+                _output.WriteLine(o.Name);
+            }
+
+            //assert            
+            _db.Owners.Any(o => o.Name == oldName).Should().BeFalse();
+            _db.Owners.Any(o => o.Name == owner.Name).Should().BeTrue();
         }
     }
 }
