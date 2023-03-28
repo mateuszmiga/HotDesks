@@ -60,5 +60,21 @@ namespace Hotdesks.Tests
             //Assert
             result.Should().NotBeEmpty();
         }
+
+        [Fact]
+        public async Task Delete_SpecifiedOwner_ShouldDeleteSpecifiedEntity()
+        {
+            //Arrange
+            var repo = new GenericRepository<Owner>(_db);
+            var entityCount = _db.Owners.Count();
+            var owner = _db.Owners.Where(_o => _o.Id == 1).First();
+
+            //act
+            await repo.Delete(owner);
+
+            //assert
+            _db.Owners.Count().Should().Be(entityCount - 1);
+            _db.Owners.Any(o => o.Name == owner.Name).Should().BeFalse();
+        }
     }
 }
