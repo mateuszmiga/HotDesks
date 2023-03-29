@@ -3,16 +3,11 @@ using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
 using FluentAssertions;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -37,7 +32,7 @@ namespace Hotdesks.Tests
             var repo = new GenericRepository<Owner>(mock.Object);
 
             //Act
-            var result =await repo.GetAll();
+            var result = await repo.GetAll();
             foreach (var item in result)
             {
                 _output.WriteLine(item.Name);
@@ -45,8 +40,8 @@ namespace Hotdesks.Tests
             //Assert
             result.Should().AllBeOfType<Owner>().Should().NotBeNull();
         }
-        
-        
+
+
         [Fact]
         public async Task AddAsync_AnyEntities_ShouldBeAdded()
         {
@@ -59,10 +54,10 @@ namespace Hotdesks.Tests
             fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
 
             var mockContext = new Mock<Context>();
-            var mockSet = new Mock<DbSet<Owner>>();            
+            var mockSet = new Mock<DbSet<Owner>>();
             mockContext.Setup(c => c.Set<Owner>()).Returns(mockSet.Object);
             var repo = new GenericRepository<Owner>(mockContext.Object);
-            var owner = fixture.Create<Owner>();            
+            var owner = fixture.Create<Owner>();
 
             //Act
             await repo.Create(owner);

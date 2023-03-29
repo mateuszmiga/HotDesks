@@ -1,15 +1,9 @@
 ﻿using Bogus;
-using Bogus.DataSets;
 using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
 using FluentAssertions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -18,7 +12,7 @@ namespace Hotdesks.Tests
 {
     public class GenericRepositoryTestsWithInMemoryDb : IClassFixture<InMemoryDb>
     {
-        private readonly InMemoryDb _db;        
+        private readonly InMemoryDb _db;
         private readonly ITestOutputHelper _output;
 
         public GenericRepositoryTestsWithInMemoryDb(InMemoryDb db, ITestOutputHelper output)
@@ -37,12 +31,12 @@ namespace Hotdesks.Tests
             //Arrange
             var repo = new GenericRepository<Owner>(_db);
             var owner = new Faker<Owner>().RuleFor(n => n.Name, o => o.Person.FullName).Generate();
-            
+
             //Act
             await repo.Create(owner);
             var result = _db.Owners.Where(o => o.Name == owner.Name).First().Name;
             _output.WriteLine(result);
-            
+
             //Assert            
             result.Should().Be(owner.Name);
         }
@@ -54,7 +48,7 @@ namespace Hotdesks.Tests
             var repo = new GenericRepository<Owner>(_db);
 
             //Act
-            var result =await repo.GetAll();
+            var result = await repo.GetAll();
 
             //Assert
             result.Should().NotBeEmpty();
@@ -86,7 +80,7 @@ namespace Hotdesks.Tests
             owner.Name = "test test";
 
             //act
-            await repo.UpdateAsync(owner);            
+            await repo.UpdateAsync(owner);
 
             //assert            
             _db.Owners.Any(o => o.Name == oldName).Should().BeFalse();
@@ -98,7 +92,7 @@ namespace Hotdesks.Tests
         {
             //arrange
             var repo = new GenericRepository<Owner>(_db);
-            
+
             //act
             var owner = await repo.GetByIdAsync(2);
 
