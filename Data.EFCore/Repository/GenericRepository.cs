@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Interfaces;
 
 namespace Data.EFCore.Repository
 {
@@ -21,15 +22,13 @@ namespace Data.EFCore.Repository
 
         public async Task Create(TEntity obj)
         {
-            obj.CreatedAt= DateTime.Now;
+            obj.CreatedAt = DateTime.Now;
             _context.Set<TEntity>().Add(obj);
-            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(TEntity obj)
         {
             _context.Set<TEntity>().Remove(obj);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, List<string> includes = null)
@@ -75,8 +74,6 @@ namespace Data.EFCore.Repository
         {
             obj.UpdatedAt= DateTime.Now;            
             _context.Entry(obj).State= EntityState.Modified;
-            
-            await _context.SaveChangesAsync();
         }
     }
 }

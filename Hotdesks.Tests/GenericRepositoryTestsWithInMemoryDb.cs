@@ -34,10 +34,11 @@ namespace Hotdesks.Tests
 
             //Act
             await repo.Create(owner);
-            var result = _db.Owners.First(o => o.Name == owner.Name).Name;
-            _output.WriteLine(result);
+            await _db.SaveChangesAsync();
 
             //Assert            
+            var result = _db.Owners.First(o => o.Name == owner.Name).Name;
+            _output.WriteLine(result);
             result.Should().Be(owner.Name);
         }
 
@@ -64,7 +65,7 @@ namespace Hotdesks.Tests
 
             //act
             await repo.Delete(owner);
-
+            await _db.SaveChangesAsync();
             //assert
             _db.Owners.Count().Should().Be(entityCount - 1);
             _db.Owners.Any(o => o.Name == owner.Name).Should().BeFalse();
@@ -81,6 +82,7 @@ namespace Hotdesks.Tests
 
             //act
             await repo.UpdateAsync(owner);
+            await _db.SaveChangesAsync();
 
             //assert            
             _db.Owners.Any(o => o.Name == oldName).Should().BeFalse();

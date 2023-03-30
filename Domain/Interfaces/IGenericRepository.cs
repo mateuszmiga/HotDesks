@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Domain.Entities;
 
-namespace Data.EFCore.Repository
+namespace Domain.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {

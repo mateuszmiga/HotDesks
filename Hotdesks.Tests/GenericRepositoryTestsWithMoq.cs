@@ -61,6 +61,7 @@ namespace Hotdesks.Tests
 
             //Act
             await repo.Create(owner);
+            mockContext.Object.SaveChangesAsync();
 
             //Assert
             mockSet.Verify(m => m.Add(It.IsAny<Owner>()), Times.Once());
