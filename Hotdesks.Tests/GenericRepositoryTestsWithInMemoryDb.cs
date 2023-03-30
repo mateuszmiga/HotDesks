@@ -34,7 +34,7 @@ namespace Hotdesks.Tests
 
             //Act
             await repo.Create(owner);
-            var result = _db.Owners.Where(o => o.Name == owner.Name).First().Name;
+            var result = _db.Owners.First(o => o.Name == owner.Name).Name;
             _output.WriteLine(result);
 
             //Assert            
@@ -60,7 +60,7 @@ namespace Hotdesks.Tests
             //arrange
             var repo = new GenericRepository<Owner>(_db);
             var entityCount = _db.Owners.Count();
-            var owner = _db.Owners.Where(_o => _o.Id == 1).First();
+            var owner = _db.Owners.First(_o => _o.Id == 1);
 
             //act
             await repo.Delete(owner);
@@ -75,7 +75,7 @@ namespace Hotdesks.Tests
         {
             //arrange
             var repo = new GenericRepository<Owner>(_db);
-            var owner = _db.Owners.Where(_o => _o.Id == 2).First();
+            var owner = _db.Owners.First(_o => _o.Id == 2);
             var oldName = owner.Name;
             owner.Name = "test test";
 
