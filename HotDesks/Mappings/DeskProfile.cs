@@ -1,6 +1,18 @@
-﻿namespace HotDesks.Api.Mappings
+﻿using AutoMapper;
+using Domain.Entities;
+using HotDesks.Api.Dto;
+
+namespace HotDesks.Api.Mappings
 {
-    public class DeskMap
+    public class DeskProfile : Profile
     {
+        public DeskProfile()
+        {
+            CreateMap<Desk, DeskDto>().ReverseMap();
+            CreateMap<Owner, OwnerDto>().ReverseMap();
+            CreateMap<Room, RoomDto>().ReverseMap();
+        }
+
+        
     }
 }

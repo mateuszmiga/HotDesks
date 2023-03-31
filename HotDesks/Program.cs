@@ -1,7 +1,9 @@
 using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
+using HotDesks.Api.Mappings;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(opt => 
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<Context>();
-builder.Services.AddAutoMapper(typeof(Program));
-
+builder.Services.AddAutoMapper(typeof(DeskProfile));
+builder.Host.UseSerilog((hbc, lc) => lc.WriteTo.Console().WriteTo.Seq("http://localhost:7000"));
 
 var app = builder.Build();
 
@@ -25,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
 
 using var scope = app.Services.CreateScope();
 var dataSeeder = new DataSeeder();
