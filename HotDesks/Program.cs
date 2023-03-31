@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(opt => 
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<Context>();
-builder.Services.AddTransient<GenericRepository<Desk>>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 
 var app = builder.Build();
