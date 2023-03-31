@@ -17,7 +17,10 @@ builder.Services.AddDbContext<Context>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<Context>();
 builder.Services.AddAutoMapper(typeof(DeskProfile));
-builder.Host.UseSerilog((hbc, lc) => lc.WriteTo.Console().WriteTo.Seq("http://localhost:7000"));
+builder.Host.UseSerilog((hbc, lc) => lc
+    .WriteTo.Console()
+    .WriteTo.File("\\logs.txt")
+    .WriteTo.Seq("http://localhost:5341"));
 
 var app = builder.Build();
 
