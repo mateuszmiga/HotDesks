@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
 using Data.EFCore.DbContext;
 using Data.EFCore.Repository;
 using Domain.Entities;
+using Domain.Interfaces;
 using HotDesks.Api.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -9,13 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(opt => 
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<Context>();
+builder.Services.AddScoped<Context>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(DeskProfile));
 builder.Host.UseSerilog((hbc, lc) => lc
     .WriteTo.Console()
