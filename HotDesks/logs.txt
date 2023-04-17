@@ -28,3 +28,229 @@ INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
 2023-04-17 13:47:25.901 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
 2023-04-17 13:47:25.907 +02:00 [INF] HTTP GET /Desk responded 200 in 507.8062 ms
 2023-04-17 13:47:25.926 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 537.2608ms
+2023-04-17 20:32:03.329 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:32:03.614 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:32:03.614 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:32:03.618 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:32:03.619 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:32:03.620 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:32:04.281 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger - -
+2023-04-17 20:32:04.361 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger - - - 301 0 - 82.6529ms
+2023-04-17 20:32:04.364 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:32:04.599 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 235.1156ms
+2023-04-17 20:32:04.650 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/swagger-ui-standalone-preset.js - -
+2023-04-17 20:32:04.650 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:32:04.650 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:32:04.651 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/swagger-ui.css - -
+2023-04-17 20:32:04.651 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/swagger-ui-bundle.js - -
+2023-04-17 20:32:04.658 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 8.1025ms
+2023-04-17 20:32:04.668 +02:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2023-04-17 20:32:04.668 +02:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2023-04-17 20:32:04.670 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/swagger-ui.css - - - 200 143632 text/css 19.7601ms
+2023-04-17 20:32:04.671 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/swagger-ui-standalone-preset.js - - - 200 337162 application/javascript 21.6732ms
+2023-04-17 20:32:04.677 +02:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2023-04-17 20:32:04.679 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/swagger-ui-bundle.js - - - 200 1092889 application/javascript 28.4166ms
+2023-04-17 20:32:04.684 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 34.2843ms
+2023-04-17 20:32:04.814 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:32:04.833 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/favicon-32x32.png - -
+2023-04-17 20:32:04.834 +02:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2023-04-17 20:32:04.835 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/favicon-32x32.png - - - 200 628 image/png 2.0226ms
+2023-04-17 20:32:04.856 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 42.2309ms
+2023-04-17 20:32:08.493 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:32:08.499 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:32:08.514 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:32:08.648 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:32:08.670 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Domain.Entities.Desk, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:32:08.699 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 180.0593ms
+2023-04-17 20:32:08.700 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:32:08.702 +02:00 [INF] HTTP GET /Desk responded 200 in 205.7280 ms
+2023-04-17 20:32:08.709 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 216.8392ms
+2023-04-17 20:40:11.631 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:40:11.870 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:40:11.871 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:40:11.876 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:40:11.877 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:40:11.877 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:40:12.353 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:40:12.642 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 290.8204ms
+2023-04-17 20:40:12.695 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:40:12.695 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:40:12.703 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 7.7955ms
+2023-04-17 20:40:12.715 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 19.4412ms
+2023-04-17 20:40:12.882 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:40:12.926 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 43.6846ms
+2023-04-17 20:40:16.997 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:40:17.003 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:40:17.016 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:40:17.217 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:40:17.252 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HotDesks.Api.Dto.DeskDto, HotDesks.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:40:17.281 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 260.8014ms
+2023-04-17 20:40:17.282 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:40:17.284 +02:00 [INF] HTTP GET /Desk responded 200 in 283.0512 ms
+2023-04-17 20:40:17.293 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 296.1512ms
+2023-04-17 20:43:39.614 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:43:39.838 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:43:39.839 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:43:39.842 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:43:39.843 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:43:39.844 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:43:40.689 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:43:40.940 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 253.6409ms
+2023-04-17 20:43:40.993 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:43:40.993 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:43:40.999 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 6.1898ms
+2023-04-17 20:43:41.006 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 13.4416ms
+2023-04-17 20:43:41.058 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:43:41.092 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 34.0329ms
+2023-04-17 20:43:48.782 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:43:48.789 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:43:48.802 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:43:49.001 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:43:49.033 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HotDesks.Api.Dto.DeskDto, HotDesks.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:43:49.059 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 252.7084ms
+2023-04-17 20:43:49.060 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:43:49.063 +02:00 [INF] HTTP GET /Desk responded 200 in 275.8474 ms
+2023-04-17 20:43:49.070 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 287.9266ms
+2023-04-17 20:47:06.690 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:47:06.897 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:47:06.897 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:47:06.901 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:47:06.901 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:47:06.902 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:47:07.652 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:47:07.914 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 264.9811ms
+2023-04-17 20:47:07.956 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:47:07.956 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:47:07.963 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 6.9147ms
+2023-04-17 20:47:07.968 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 12.4237ms
+2023-04-17 20:47:08.036 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:47:08.071 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 35.0512ms
+2023-04-17 20:47:13.468 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:47:13.475 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:47:13.488 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:47:13.684 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:47:13.716 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HotDesks.Api.Dto.DeskDto, HotDesks.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:47:13.744 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 251.5668ms
+2023-04-17 20:47:13.745 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:47:13.747 +02:00 [INF] HTTP GET /Desk responded 200 in 274.5008 ms
+2023-04-17 20:47:13.755 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 286.9684ms
+2023-04-17 20:49:21.201 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:49:21.409 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:49:21.410 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:49:21.413 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:49:21.414 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:49:21.414 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:49:22.169 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:49:22.431 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 264.8864ms
+2023-04-17 20:49:22.475 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:49:22.475 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:49:22.483 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 8.2125ms
+2023-04-17 20:49:22.492 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 17.8099ms
+2023-04-17 20:49:22.556 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:49:22.591 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 35.3159ms
+2023-04-17 20:49:26.199 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:49:26.205 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:49:26.219 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:49:26.425 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:49:26.459 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HotDesks.Api.Dto.DeskDto, HotDesks.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:49:26.485 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 261.9619ms
+2023-04-17 20:49:26.486 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:49:26.488 +02:00 [INF] HTTP GET /Desk responded 200 in 284.6398 ms
+2023-04-17 20:49:26.496 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 297.3357ms
+2023-04-17 20:51:26.485 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 20:51:26.701 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 20:51:26.702 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 20:51:26.705 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 20:51:26.706 +02:00 [INF] Hosting environment: Development
+2023-04-17 20:51:26.706 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 20:51:27.409 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 20:51:27.679 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 271.7264ms
+2023-04-17 20:51:27.722 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 20:51:27.722 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 20:51:27.727 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 5.0944ms
+2023-04-17 20:51:27.734 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 11.8897ms
+2023-04-17 20:51:27.796 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 20:51:27.831 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 35.2182ms
+2023-04-17 20:51:32.187 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk - -
+2023-04-17 20:51:32.194 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:51:32.208 +02:00 [INF] Route matched with {action = "GetDesks", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesks() on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 20:51:32.402 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+2023-04-17 20:51:32.446 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HotDesks.Api.Dto.DeskDto, HotDesks.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-04-17 20:51:32.471 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api) in 258.3324ms
+2023-04-17 20:51:32.472 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesks (HotDesks.Api)'
+2023-04-17 20:51:32.474 +02:00 [INF] HTTP GET /Desk responded 200 in 282.7392 ms
+2023-04-17 20:51:32.482 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk - - - 200 - application/json;+charset=utf-8 295.1396ms
+2023-04-17 21:01:21.863 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Desks" AS "d")
+2023-04-17 21:01:22.107 +02:00 [INF] Now listening on: https://localhost:7153
+2023-04-17 21:01:22.108 +02:00 [INF] Now listening on: http://localhost:5153
+2023-04-17 21:01:22.111 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-04-17 21:01:22.112 +02:00 [INF] Hosting environment: Development
+2023-04-17 21:01:22.113 +02:00 [INF] Content root path: C:\Users\Mateusz\Desktop\CSharp\HotDesks\HotDesks\
+2023-04-17 21:01:22.874 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/index.html - -
+2023-04-17 21:01:23.131 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/index.html - - - 200 - text/html;charset=utf-8 259.0743ms
+2023-04-17 21:01:23.180 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_vs/browserLink - -
+2023-04-17 21:01:23.180 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - -
+2023-04-17 21:01:23.186 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 6.6271ms
+2023-04-17 21:01:23.192 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 12.8019ms
+2023-04-17 21:01:23.255 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - -
+2023-04-17 21:01:23.311 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 55.9935ms
+2023-04-17 21:01:45.882 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7153/Desk/2 - -
+2023-04-17 21:01:45.888 +02:00 [INF] Executing endpoint 'HotDesks.Api.Controllers.DeskController.GetDesk (HotDesks.Api)'
+2023-04-17 21:01:45.909 +02:00 [INF] Route matched with {action = "GetDesk", controller = "Desk"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDesk(Int32) on controller HotDesks.Api.Controllers.DeskController (HotDesks.Api).
+2023-04-17 21:01:46.145 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."CreatedAt", "d"."Description", "d"."OwnerId", "d"."RentingEnd", "d"."RentingStart", "d"."RoomId", "d"."UpdatedAt", "o"."Id", "o"."CreatedAt", "o"."Name", "o"."UpdatedAt", "r"."Id", "r"."CreatedAt", "r"."Description", "r"."UpdatedAt"
+FROM "Desks" AS "d"
+LEFT JOIN "Owners" AS "o" ON "d"."OwnerId" = "o"."Id"
+INNER JOIN "Rooms" AS "r" ON "d"."RoomId" = "r"."Id"
+WHERE "d"."Id" = @__id_0
+LIMIT 1
+2023-04-17 21:01:46.257 +02:00 [INF] Executing OkObjectResult, writing value of type 'HotDesks.Api.Dto.DeskDto'.
+2023-04-17 21:01:46.280 +02:00 [INF] Executed action HotDesks.Api.Controllers.DeskController.GetDesk (HotDesks.Api) in 365.8949ms
+2023-04-17 21:01:46.281 +02:00 [INF] Executed endpoint 'HotDesks.Api.Controllers.DeskController.GetDesk (HotDesks.Api)'
+2023-04-17 21:01:46.283 +02:00 [INF] HTTP GET /Desk/2 responded 200 in 396.8299 ms
+2023-04-17 21:01:46.291 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7153/Desk/2 - - - 200 - application/json;+charset=utf-8 409.1150ms

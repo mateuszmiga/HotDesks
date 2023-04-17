@@ -9,8 +9,8 @@ namespace HotDesks.Api.Dto
         public DateTime? RentingStart { get; set; }
         public DateTime? RentingEnd { get; set; }
 
-        public virtual Owner? Owner { get; set; }
-        public virtual Room Room { get; set; }
+        public OwnerDto? Owner { get; set; }
+        public RoomDto Room { get; set; }
 
     }
 }
