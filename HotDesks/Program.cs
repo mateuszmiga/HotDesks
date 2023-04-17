@@ -25,7 +25,7 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(DeskProfile));
 builder.Host.UseSerilog((hbc, lc) => lc
     .WriteTo.Console()
-    .WriteTo.File("\\logs.txt")
+    .WriteTo.File("logs.txt")
     .WriteTo.Seq("http://localhost:5341"));
 
 var app = builder.Build();
