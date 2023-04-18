@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Sqlite;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Data.EFCore.DbContext
 {
-    public class Context : Microsoft.EntityFrameworkCore.DbContext
+    public class Context : IdentityDbContext<User>
     {
         
         public Context(DbContextOptions<Context> options) : base(options)
@@ -27,6 +28,7 @@ namespace Data.EFCore.DbContext
        
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
             builder.Entity<Desk>().HasKey(d => d.Id);
             builder.Entity<Desk>().HasOne(o => o.Owner).WithOne(d => d.Desk);
             builder.Entity<Desk>().HasOne(o => o.Room).WithMany(d => d.Desks);

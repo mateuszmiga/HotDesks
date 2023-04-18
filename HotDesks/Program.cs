@@ -5,6 +5,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddServices(builder);
+builder.Services.AddIdentityServices();
 builder.Host.UseSerilog((hbc, lc) => lc
     .WriteTo.Console()
     .WriteTo.File("logs.txt")
