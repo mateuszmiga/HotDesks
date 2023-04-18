@@ -9,6 +9,11 @@ namespace HotDesks.Api.Extensions
 {
     public static class Services
     {
+        /// <summary>
+        /// Adds all services for application
+        /// </summary>
+        /// <param name="seviceCollection"></param>
+        /// <param name="builder"></param>
         public static void AddServices(this IServiceCollection seviceCollection, WebApplicationBuilder builder)
         {
             seviceCollection.AddControllers().AddJsonOptions(options =>
