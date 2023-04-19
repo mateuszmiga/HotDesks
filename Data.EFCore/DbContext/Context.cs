@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -35,6 +36,18 @@ namespace Data.EFCore.DbContext
             builder.Entity<Desk>().Property(p => p.Description).HasMaxLength(128);
             builder.Entity<Desk>().Property(p => p.RentingStart).HasColumnType("date");
             builder.Entity<Desk>().Property(p => p.RentingEnd).HasColumnType("date");
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMINISTRATOR"
+                });
         }
 
     }
