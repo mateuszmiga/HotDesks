@@ -3,9 +3,10 @@ using HotDesks.Api.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = builder.Configuration;
 builder.Services.AddServices(builder);
 builder.Services.AddIdentityServices();
+builder.Services.ConfigureJWT(configuration);
 builder.Host.UseSerilog((hbc, lc) => lc
     .WriteTo.Console()
     .WriteTo.File("logs.txt")
