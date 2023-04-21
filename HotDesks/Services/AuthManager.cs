@@ -31,7 +31,16 @@ namespace HotDesks.Api.Services
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            throw new NotImplementedException();
+            var jwtSettings = _configuration.GetSection("Jwt");
+            var expiration = DateTime.Now.AddMinutes(Convert.ToInt32(jwtSettings.GetSection("lifetime").Value));
+
+            var jwtSecurityToken = new JwtSecurityToken(
+                issuer : jwtSettings.GetSection("validIssuer").Value,
+                claims : claims,
+                expires: expiration,
+                signingCredentials: signingCredentials);
+
+            return jwtSecurityToken;
         }
 
         public async Task<bool> ValidateUser(LoginUserDto loginUserDto)

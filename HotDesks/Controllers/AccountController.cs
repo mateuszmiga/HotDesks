@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using HotDesks.Api.Dto;
+using HotDesks.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,14 @@ namespace HotDesks.Api.Controllers
         private readonly UserManager<User> _userManager;        
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
+        private readonly IAuthManager _authManager;
 
-        public AccountController(IMapper mapper, UserManager<User> userManager, ILogger<AccountController> logger)
+        public AccountController(IMapper mapper, UserManager<User> userManager, ILogger<AccountController> logger, IAuthManager authManager)
         {
             _mapper = mapper;
-            _userManager = userManager;            
+            _userManager = userManager;
             _logger = logger;
+            _authManager = authManager;
         }
 
         [HttpPost]
@@ -53,34 +56,32 @@ namespace HotDesks.Api.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("login")]
+        [HttpPost]
+        [Route("login")]
 
-        //public async Task<IActionResult> Login([FromBody] LoginUserDto userDto)
-        //{
-        //    _logger.LogInformation($"Login attempt for: {userDto.Email}");
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        public async Task<IActionResult> Login([FromBody] LoginUserDto userDto)
+        {
+            _logger.LogInformation($"Login attempt for: {userDto.Email}");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    try
-        //    {
-        //        var result = await _signInManager.PasswordSignInAsync(userDto.Email, userDto.Password, false, false);
+            try
+            {                
+                if (!await _authManager.ValidateUser(userDto))
+                {
+                    _logger.LogWarning($"{userDto.Email} tried to login, but credentials were incorrect");
+                    return Unauthorized(userDto);
+                }
 
-        //        if (!result.Succeeded)
-        //        {
-        //            _logger.LogWarning($"{userDto.Email} tried to login, but credentials were incorrect");
-        //            return Unauthorized(userDto);
-        //        }
-
-        //        return Accepted(userDto);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Something went wrong in {nameof(Login)}.\n {ex.Message}");
-        //        return StatusCode(500, "Internal server error.");
-        //    }
-        //}
+                return Accepted(new { Token = await _authManager.GetToken()});
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong in {nameof(Login)}.\n {ex.Message}");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Interfaces;
 using HotDesks.Api.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

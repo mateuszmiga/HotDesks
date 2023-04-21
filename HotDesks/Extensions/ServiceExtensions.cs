@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using System.Security.Cryptography.Xml;
+using HotDesks.Api.Services;
 
 namespace HotDesks.Api.Extensions
 {
@@ -26,13 +29,43 @@ namespace HotDesks.Api.Extensions
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"Bearer scheme: 'Bearer' [space] 'your token'. Example: 'Bearer 12345678abc'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement() 
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "0auth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotDesks.Api", Version = "v1" });
+            });
+
             services.AddDbContext<Context>(opt =>
                 opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<Context>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(DeskProfile));    
             services.AddAuthentication();
+            services.AddScoped<IAuthManager, AuthManager>();
         }
 
         /// <summary>
