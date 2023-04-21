@@ -45,7 +45,7 @@ namespace Data.EFCore.DbContext
                 },
                 new IdentityRole
                 {
-                    Name = "Admin",
+                    Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
                 });
         }

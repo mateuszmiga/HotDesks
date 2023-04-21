@@ -30,7 +30,7 @@ var context = scope.ServiceProvider.GetService<Context>();
 await dataSeeder.SeedDataAsyncIfDbIsEmpty(context);
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

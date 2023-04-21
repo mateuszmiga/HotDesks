@@ -43,7 +43,12 @@ namespace HotDesks.Api.Controllers
 
                 if (!result.Succeeded)
                 {
-                    return BadRequest("User registration failed");
+                    var errors = "User Registration failed.";
+                    foreach (var error in result.Errors)
+                    {
+                        errors += $" \n {error.Description}"; 
+                    }
+                    return BadRequest(errors);
                 }
                 _logger.LogInformation($"Registration of {userDto.Email} succesfull.");
                 await _userManager.AddToRolesAsync(user, userDto.Roles);
