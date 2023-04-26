@@ -87,7 +87,7 @@ namespace HotDesks.Api.Extensions
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("Jwt");
-            var key = Environment.GetEnvironmentVariable("KEY");
+            var key = Environment.GetEnvironmentVariable("KEY", EnvironmentVariableTarget.Machine);
 
             services.AddAuthentication(o =>
             {

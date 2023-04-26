@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using HotDesks.Api.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +40,7 @@ namespace HotDesks.Api.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetDesk")]        
         public async Task<IActionResult> GetDesk(int id)
         {
             try
@@ -51,6 +52,29 @@ namespace HotDesks.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Something wrong in the {nameof(GetDesk)}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDesk([FromBody] CreateDeskDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid POST request in {nameof(CreateDesk)}");
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var desk = _mapper.Map<Desk>(dto);
+                await _unitOfWork.Desks.Create(desk);
+                await _unitOfWork.CommitChanges();
+
+                return CreatedAtRoute("GetDesk", new {Id = desk.Id}, desk );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Something wrong in the {nameof(CreateDesk)}");
                 return StatusCode(500, "Internal Server Error");
             }
         }
