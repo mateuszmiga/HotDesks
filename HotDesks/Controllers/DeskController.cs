@@ -91,8 +91,8 @@ namespace HotDesks.Api.Controllers
         }
 
         //[Authorize]
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -115,7 +115,7 @@ namespace HotDesks.Api.Controllers
                 _mapper.Map(dto, desk);
                 await _unitOfWork.CommitChanges(); //entity is tracked, so it can be directly saved. No need to use Update() method.
 
-                return StatusCode(204, "Desk updated.");
+                return StatusCode(200, "Desk updated.");
             }
             catch (Exception ex)
             {
