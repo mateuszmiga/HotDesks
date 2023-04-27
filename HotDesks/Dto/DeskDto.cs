@@ -9,14 +9,22 @@ namespace HotDesks.Api.Dto
 
     }
     
-    public class DeskDto : CreateDeskDto
+    public class DeskDto
     {
+        public string Description { get; set; }
         public DateTime? RentingStart { get; set; }
-        public DateTime? RentingEnd { get; set; }
-        public int Id { get; set; }
+        public DateTime? RentingEnd { get; set; }        
 
         public RoomDto Room { get; set; }
         public OwnerDto? Owner { get; set; }
+    }
 
+    public class UpdateDeskDto 
+    {
+        public string Description { get; set; }
+        public DateTime? RentingStart { get; set; }
+        public DateTime? RentingEnd { get; set; }
+        public int? OwnerId { get; set; }
+        public int RoomId { get; set; }
     }
 }

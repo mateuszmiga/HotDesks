@@ -10,6 +10,7 @@ namespace HotDesks.Api.Mappings
         {
             CreateMap<Desk, DeskDto>().ReverseMap();
             CreateMap<Desk, CreateDeskDto>().ReverseMap();
+            CreateMap<Desk, UpdateDeskDto>().ReverseMap();
             CreateMap<Owner, OwnerDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
