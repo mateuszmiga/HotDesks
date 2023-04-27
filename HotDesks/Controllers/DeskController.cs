@@ -24,8 +24,11 @@ namespace HotDesks.Api.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetDesks()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllDesks()
         {
             try
             {
@@ -35,12 +38,14 @@ namespace HotDesks.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something wrong in the {nameof(GetDesks)}");
+                _logger.LogError(ex, $"Something wrong in the {nameof(GetAllDesks)}");
                 return StatusCode(500, "Internal Server Error");
             }
         }
 
-        [HttpGet("{id:int}", Name = "GetDesk")]        
+        [HttpGet("{id:int}", Name = "GetDesk")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetDesk(int id)
         {
             try
@@ -56,7 +61,12 @@ namespace HotDesks.Api.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateDesk([FromBody] CreateDeskDto dto)
         {
             if (!ModelState.IsValid)
@@ -70,7 +80,7 @@ namespace HotDesks.Api.Controllers
                 await _unitOfWork.Desks.Create(desk);
                 await _unitOfWork.CommitChanges();
 
-                return CreatedAtRoute("GetDesk", new {Id = desk.Id}, desk );
+                return StatusCode(201, "Desk created.");
             }
             catch (Exception ex)
             {

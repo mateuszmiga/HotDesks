@@ -35,7 +35,7 @@ namespace HotDesks.Api.Services
             var expiration = DateTime.Now.AddMinutes(Convert.ToInt32(jwtSettings.GetSection("lifetime").Value));
 
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer : jwtSettings.GetSection("validIssuer").Value,
+                issuer : jwtSettings.GetSection("Issuer").Value,
                 claims : claims,
                 expires: expiration,
                 signingCredentials: signingCredentials);

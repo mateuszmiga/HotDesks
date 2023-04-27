@@ -87,7 +87,7 @@ namespace HotDesks.Api.Extensions
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("Jwt");
-            var key = Environment.GetEnvironmentVariable("KEY", EnvironmentVariableTarget.Machine);
+            var key = "d908ef36-bb3f-4274-a83f-8dbef6b7692b";// Environment.GetEnvironmentVariable("KEY");
 
             services.AddAuthentication(o =>
             {
@@ -97,7 +97,8 @@ namespace HotDesks.Api.Extensions
             {
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateIssuer = true,   
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings.GetSection("Issuer").Value,
