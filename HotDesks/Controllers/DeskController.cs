@@ -23,9 +23,9 @@ namespace HotDesks.Api.Controllers
             _logger = logger;
             _mapper = mapper;
         }
-
-        [Authorize]
+        
         [HttpGet]
+        [Route("All")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllDesks()
@@ -43,14 +43,20 @@ namespace HotDesks.Api.Controllers
             }
         }
 
-        [HttpGet("{id:int}", Name = "GetDesk")]
+        [HttpGet("Get/{id:int}", Name = "GetDesk")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetDesk(int id)
         {
             try
             {
                 var desk = await _unitOfWork.Desks.GetByIdAsync(id, new List<string>() { "Owner", "Room" });
+                if (desk == null)
+                {
+                    _logger.LogError($"There is no desk with specified Id: {id}");
+                    return BadRequest();
+                }
                 var deskDto = _mapper.Map<DeskDto>(desk);
                 return Ok(deskDto);
             }
@@ -63,6 +69,7 @@ namespace HotDesks.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [Route("Create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -90,11 +97,11 @@ namespace HotDesks.Api.Controllers
             }
         }
 
-        //[Authorize]
-        [HttpPut("{id:int}")]
+        [Authorize]
+        [HttpPut("Edit/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateDesk(int id, [FromBody] UpdateDeskDto dto)
         {
@@ -120,6 +127,35 @@ namespace HotDesks.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Something wrong in the {nameof(UpdateDesk)}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]        
+        [HttpDelete("Delete/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteDesk(int id)
+        {
+            try
+            {
+                var desk = await _unitOfWork.Desks.GetByIdAsync(id);
+                if (desk == null)
+                {
+                    _logger.LogError($"Unable to delete desk, cause: null value");
+                    return BadRequest();
+                }
+                await _unitOfWork.Desks.Delete(desk);
+                await _unitOfWork.CommitChanges();
+                _logger.LogInformation($"Desk Deleted. Id: {desk.Id} ; Description: {desk.Description}");
+
+                return StatusCode(200, "Desk deleted succesfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Something wrong in the {nameof(DeleteDesk)}");
                 return StatusCode(500, "Internal Server Error");
             }
         }
